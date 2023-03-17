@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charser="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript GameDev</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+        <script>
+            const firebaseConfig = {
+                apiKey: 'AIzaSyCBibsN3VUMupNETni42VX5V-C0LrchwKw',
+                authDomain: 'jsgd-5396b.firebaseapp.com',
+                databaseURL:
+                    'https://jsgd-5396b-default-rtdb.europe-west1.firebasedatabase.app',
+                projectId: 'jsgd-5396b',
+                storageBucket: 'jsgd-5396b.appspot.com',
+                messagingSenderId: '370401413398',
+                appId: '1:370401413398:web:cc75e820203cb7ea60a837',
+            }
+            firebase.initializeApp(firebaseConfig)
+        </script>
+        <script defer src="consts.js"></script>
+        <script defer src="script.js"></script>
+    </head>
+    <body>
+        <canvas></canvas>
+    </body>
+</html>
