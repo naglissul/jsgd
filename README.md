@@ -2,7 +2,9 @@
 
 ## Tech
 
--   Vanilla Javascript (+HTML & CSS ofc)
+-   HTML Canvas
+-   CSS
+-   Vanilla Javascript
 -   Firebase auth & realtime db
 -   Jest
 -   Prettier
