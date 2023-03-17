@@ -1,6 +1,5 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
-c.font = '30px Arial'
 
 canvas.width = innerWidth
 canvas.height = innerHeight
@@ -12,6 +11,8 @@ let playerRef
 let playerId
 const allPlayersRef = firebase.database().ref('players')
 let players = []
+let velY = 0
+let velX = 0
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -40,18 +41,19 @@ firebase
         console.log(errorCode, errorMsg)
     })
 //----------------------------------------------------
-//PLAYER
-function handleArrowPress(velX = 0, velY = 0) {
-    playerRef.update({
-        x: players[playerId].x + velX,
-        y: players[playerId].y + velY,
-    })
+function jump() {
+    velY = -20
 }
 
 //LISTENERS
 function initListeners() {
     allPlayersRef.on('value', (snapshot) => {
         c.clearRect(0, 0, canvas.width, canvas.height)
+
+        c.font = '30px Arial'
+        c.fillStyle = 'red'
+        c.fillText('DO NOT OPEN THE CONSOLE!!!', 500, 100)
+        c.font = '10px Arial'
         //draw all players
         players = snapshot.val() || {}
         Object.keys(players).forEach((key) => {
@@ -71,10 +73,42 @@ function initListeners() {
         players = snapshot.val() || {}
     })
 
-    new KeyListener('ArrowUp', () => handleArrowPress(0, -15))
-    new KeyListener('ArrowDown', () => handleArrowPress(0, 15))
-    new KeyListener('ArrowLeft', () => handleArrowPress(-15, 0))
-    new KeyListener('ArrowRight', () => handleArrowPress(15, 0))
+    new KeyListener('Space', () => jump())
+    new KeyListener(
+        'ArrowLeft',
+        () => (velX = -15),
+        () => (velX = 0)
+    )
+    new KeyListener(
+        'ArrowRight',
+        () => (velX = 15),
+        () => (velX = 0)
+    )
 }
 
 //PLAYER ME------------------------------------------
+function animate() {
+    requestAnimationFrame(animate)
+    velY += 1
+    let x = players[playerId].x
+    let y = players[playerId].y
+    x += velX
+    y += velY
+
+    if (y > innerHeight - 30) {
+        velY = -velY + 15
+        y = innerHeight - 30
+    }
+    if (x > innerWidth - 30) {
+        x = innerWidth - 30
+    }
+    if (x < 0) {
+        x = 0
+    }
+
+    playerRef.update({
+        x: x,
+        y: y,
+    })
+}
+animate()
