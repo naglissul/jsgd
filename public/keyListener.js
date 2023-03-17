@@ -4,7 +4,7 @@ class KeyListener {
         this.keydownFunction = function (event) {
             if (event.code === keyCode) {
                 if (keySafe) {
-                    keySafe = false
+                    keySafe = true
                     callback()
                 }
             }
