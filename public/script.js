@@ -4,9 +4,6 @@ const c = canvas.getContext('2d')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-//console.log(c)
-//console.log(firebase)
-
 let playerRef
 let playerId
 const allPlayersRef = firebase.database().ref('players')
@@ -52,7 +49,7 @@ function initListeners() {
 
         c.font = '30px Arial'
         c.fillStyle = 'red'
-        c.fillText('DO NOT OPEN THE CONSOLE!!!', 500, 100)
+        c.fillText('Left, Right, Space, A', 500, 100)
         c.font = '10px Arial'
         //draw all players
         players = snapshot.val() || {}
@@ -84,6 +81,20 @@ function initListeners() {
         () => (velX = 15),
         () => (velX = 0)
     )
+    new KeyListener(
+        'KeyA',
+        () =>
+            (players = {
+                ...players,
+                [playerId + parseInt(Math.random() * 100)]: {
+                    x: players[playerId].x,
+                    y: players[playerId].y,
+                    color: 'black',
+                    name: '',
+                },
+            }),
+        () => {}
+    )
 }
 
 //PLAYER ME------------------------------------------
@@ -96,7 +107,7 @@ function animate() {
     y += velY
 
     if (y > innerHeight - 30) {
-        velY = -velY + 15
+        velY = -velY + 5
         y = innerHeight - 30
     }
     if (x > innerWidth - 30) {
@@ -106,9 +117,9 @@ function animate() {
         x = 0
     }
 
-    playerRef.update({
-        x: x,
-        y: y,
-    })
+    players[playerId].x = x
+    players[playerId].y = y
+
+    allPlayersRef.set(players)
 }
 animate()
