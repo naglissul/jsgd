@@ -1,0 +1,21 @@
+v1.0.0
+create tiles (on grid) - SPACE
+collide (jump only on platforms) - ARROW UP
+on phone
+a few tests
+
+NORMALLY PLAYABLE WITHOUT BUGS. version number written in the corner
+
+
+
+v1.1.0
+pixel art for players and tiles
+
+
+v2
+Enemy's/coins can be created by the player. when game over - disappears. refresh -  at some constant point. blocks sometimes just appear.
+What about coins? where are they?
+v3
+lobby (when game over - appears there) - single player intro. main room - randomly appears.
+v4
+gravity
