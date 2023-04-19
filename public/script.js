@@ -5,6 +5,3 @@
     const ctx = canvas.getContext('2d')
     new Game(ctx)
 })()
-
-const allPlayersRef = firebase.database().ref('players')
-const tilesRef = firebase.database().ref('tiles')

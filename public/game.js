@@ -1,25 +1,38 @@
 class Game {
     players = {}
     tiles = {}
+    allPlayersRef = firebase.database().ref('players')
+    tilesRef = firebase.database().ref('tiles')
 
     constructor(ctx) {
         this.ctx = ctx
         const playerInfo = this.initFirebase()
-        if (playerInfo) {
-            this.playerId = playerInfo[0]
-            this.playerRef = playerInfo[1]
-            this.gameLoop()
-        } else {
-            console.log('Login failed')
-        }
+        this.playerId = playerInfo[0]
+        this.playerRef = playerInfo[1]
+
+        new Player(this)
+        this.gameLoop()
     }
 
     initFirebase() {
         let playerId
         let playerRef
 
+        firebase
+            .auth()
+            .signInAnonymously()
+            .catch((error) => {
+                console.error(
+                    'Anonymous sing-in error: ',
+                    error.keyCode,
+                    error.message
+                )
+            })
+
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
+                console.log('Anonymous user is signed in.')
+
                 playerId = user.uid
                 playerRef = firebase.database().ref(`players/${playerId}`)
                 playerRef.set({
@@ -29,35 +42,26 @@ class Game {
                     x: Math.floor(Math.random() * (CANVAS_WIDTH - 30)),
                     y: Math.floor(Math.random() * (CANVAS_HEIGHT - 30)),
                 })
+
                 this.initListeners()
             } else {
-                return null
+                console.log('Anonymous user is signed out.')
             }
         })
 
-        firebase
-            .auth()
-            .signInAnonymously()
-            .catch((error) => {
-                var errorCode = error.keyCode
-                var errorMsg = error.message
-                //...
-                console.log(errorCode, errorMsg)
-            })
-
-        allPlayersRef.on('value', (snapshot) => {
+        this.allPlayersRef.on('value', (snapshot) => {
             this.players = snapshot.val() || {}
         })
 
-        allPlayersRef.on('child_added', (snapshot) => {
+        this.allPlayersRef.on('child_added', (snapshot) => {
             this.players = snapshot.val() || {}
         })
 
-        tilesRef.on('value', (snapshot) => {
+        this.tilesRef.on('value', (snapshot) => {
             this.tiles = snapshot.val() || {}
         })
 
-        tilesRef.on('child_added', (snapshot) => {
+        this.tilesRef.on('child_added', (snapshot) => {
             this.tiles = snapshot.val() || {}
         })
 
@@ -103,19 +107,43 @@ class Game {
         requestAnimationFrame(gameLoop)
     }
 
+    //FROM HERE - FIRST LEVEL SPECIFICS
+
     update() {
         playerUpdate(playerId)
     }
 
     render(ctx) {
-        backgroundRender(ctx)
+        this.backgroundRender(ctx)
+        this.playersRender(ctx)
+        this.tilesRender(ctx)
+    }
 
-        Object.keys(players).forEach((key) => {
-            playerRender(key, ctx)
+    backgroundRender(ctx) {
+        ctx.font = '30px Arial'
+        ctx.fillStyle = 'red'
+        ctx.fillText('How to play?: Left, Right, Up, Space. v1.0.0', 500, 100)
+        ctx.font = '10px Arial'
+    }
+
+    playersRender(ctx) {
+        Object.keys(this.players).forEach((key) => {
+            ctx.fillStyle = players[key].color
+            ctx.fillRect(players[key].x, players[key].y, 30, 30)
+            ctx.fillStyle = 'black'
+            ctx.textAlign = 'center'
+            ctx.fillText(
+                players[key].name,
+                players[key].x + 15,
+                players[key].y - 3
+            )
         })
+    }
 
-        Object.keys(tiles).forEach((key) => {
-            tileRender(key, ctx)
+    tilesRender(ctx) {
+        Object.keys(this.tiles).forEach((key) => {
+            ctx.fillStyle = 'black'
+            ctx.fillRect(this.tiles[key].x, this.tiles[key].y, 30, 30)
         })
     }
 }
