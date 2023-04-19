@@ -2,13 +2,16 @@ class Game {
     players = {}
     tiles = {}
 
-    constructor(canvas) {
-        this.ctx = canvas.getContext('2d')
-        canvas.width = innerWidth
-        canvas.height = innerHeight
-        this.initFirebase()
-        this.initListeners()
-        this.gameLoop()
+    constructor(ctx) {
+        this.ctx = ctx
+        const playerInfo = this.initFirebase()
+        if (playerInfo) {
+            this.playerId = playerInfo[0]
+            this.playerRef = playerInfo[1]
+            this.gameLoop()
+        } else {
+            console.log('Login failed')
+        }
     }
 
     initFirebase() {
@@ -23,12 +26,12 @@ class Game {
                     id: user.uid,
                     name: createName(),
                     color: randomFromArray(playerColors),
-                    x: Math.floor(Math.random() * (innerWidth - 30)),
-                    y: Math.floor(Math.random() * (innerHeight - 30)),
+                    x: Math.floor(Math.random() * (CANVAS_WIDTH - 30)),
+                    y: Math.floor(Math.random() * (CANVAS_HEIGHT - 30)),
                 })
-                initListeners()
+                this.initListeners()
             } else {
-                //logged out
+                return null
             }
         })
 
@@ -43,19 +46,19 @@ class Game {
             })
 
         allPlayersRef.on('value', (snapshot) => {
-            players = snapshot.val() || {}
+            this.players = snapshot.val() || {}
         })
 
         allPlayersRef.on('child_added', (snapshot) => {
-            players = snapshot.val() || {}
+            this.players = snapshot.val() || {}
         })
 
         tilesRef.on('value', (snapshot) => {
-            tiles = snapshot.val() || {}
+            this.tiles = snapshot.val() || {}
         })
 
         tilesRef.on('child_added', (snapshot) => {
-            tiles = snapshot.val() || {}
+            this.tiles = snapshot.val() || {}
         })
 
         return [playerId, playerRef]
