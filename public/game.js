@@ -122,7 +122,11 @@ class Game {
     backgroundRender(ctx) {
         ctx.font = '30px Arial'
         ctx.fillStyle = 'red'
-        ctx.fillText('How to play?: Left, Right, Up, Space. v1.0.0', 500, 100)
+        ctx.fillText(
+            'How to play?: Left, Right, Up, Space. v1.0.0. More: https://npw.lt/#/code',
+            500,
+            100
+        )
         ctx.font = '10px Arial'
     }
 

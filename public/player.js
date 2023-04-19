@@ -1,12 +1,15 @@
 class Player {
     velY = 0
     velX = 0
+    contructor(game) {
+        this.playerId = playerId
+    }
 
-    update(playerId) {
-        if (players[playerId]) {
-            velY += 1
-            let x = players[playerId].x
-            let y = players[playerId].y
+    update() {
+        if (players[this.playerId]) {
+            this.velY += 1
+            let x = players[this.playerId].x
+            let y = players[this.playerId].y
             x += velX
             y += velY
 
@@ -23,14 +26,5 @@ class Player {
             playerRef.update({ x: x, y: y })
         }
     }
-    update(key, ctx) {
-        ctx.fillStyle = players[key].color
-        ctx.fillRect(players[key].x, players[key].y, 30, 30)
-        ctx.fillStyle = 'black'
-        ctx.textAlign = 'center'
-        ctx.fillText(players[key].name, players[key].x + 15, players[key].y - 3)
-    }
-}
 
-let velY = 0
-let velX = 0
+}
