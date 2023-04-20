@@ -1,116 +1,97 @@
 class Game {
     players = {}
     tiles = {}
-    allPlayersRef = firebase.database().ref('players')
+    playersRef = firebase.database().ref('players')
     tilesRef = firebase.database().ref('tiles')
 
     constructor(ctx) {
         this.ctx = ctx
-        const playerInfo = this.initFirebase()
-        this.playerId = playerInfo[0]
-        this.playerRef = playerInfo[1]
+        this.firebaseSignIn((user) => {
+            const localPlayerId = user.uid
+            if (localPlayerId) {
+                this.localPlayer = new LocalPlayer(localPlayerId, this)
 
-        new Player(this)
-        this.gameLoop()
+                this.playersRef.on('value', (snapshot) => {
+                    this.players = snapshot.val() || {}
+                    this.localPlayer.x = this.players[localPlayerId].x
+                    this.localPlayer.y = this.players[localPlayerId].y
+                })
+
+                this.tilesRef.on('value', (snapshot) => {
+                    this.tiles = snapshot.val() || {}
+                })
+
+                this.initListeners()
+                this.gameLoop()
+            }
+        })
     }
 
-    initFirebase() {
-        let playerId
-        let playerRef
-
+    firebaseSignIn(callback) {
         firebase
             .auth()
             .signInAnonymously()
             .catch((error) => {
-                console.error(
-                    'Anonymous sing-in error: ',
-                    error.keyCode,
-                    error.message
-                )
+                console.error('Anonymous sign in error: ', error)
             })
-
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                console.log('Anonymous user is signed in.')
-
-                playerId = user.uid
-                playerRef = firebase.database().ref(`players/${playerId}`)
-                playerRef.set({
-                    id: user.uid,
-                    name: createName(),
-                    color: randomFromArray(playerColors),
-                    x: Math.floor(Math.random() * (CANVAS_WIDTH - 30)),
-                    y: Math.floor(Math.random() * (CANVAS_HEIGHT - 30)),
+            .then(() => {
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        console.log('Anonymous user is signed in.')
+                        callback(user)
+                    } else {
+                        console.log('Anonymous user is signed out.')
+                    }
                 })
-
-                this.initListeners()
-            } else {
-                console.log('Anonymous user is signed out.')
-            }
-        })
-
-        this.allPlayersRef.on('value', (snapshot) => {
-            this.players = snapshot.val() || {}
-        })
-
-        this.allPlayersRef.on('child_added', (snapshot) => {
-            this.players = snapshot.val() || {}
-        })
-
-        this.tilesRef.on('value', (snapshot) => {
-            this.tiles = snapshot.val() || {}
-        })
-
-        this.tilesRef.on('child_added', (snapshot) => {
-            this.tiles = snapshot.val() || {}
-        })
-
-        return [playerId, playerRef]
+            })
     }
 
     initListeners() {
         new KeyListener(
             'ArrowUp',
-            () => (velY = -20),
+            () => (this.localPlayer.velY = -20),
             () => {}
         )
         new KeyListener(
             'ArrowLeft',
-            () => (velX = -15),
-            () => (velX = 0)
+            () => (this.localPlayer.velX = -10),
+            () => (this.localPlayer.velX = 0)
         )
         new KeyListener(
             'ArrowRight',
-            () => (velX = 15),
-            () => (velX = 0)
+            () => (this.localPlayer.velX = 10),
+            () => (this.localPlayer.velX = 0)
         )
         new KeyListener(
             'Space',
             () => {
-                tilesRef.push({
-                    x: players[playerId].x - 30,
-                    y: players[playerId].y,
+                this.tilesRef.push({
+                    x: this.localPlayer.x,
+                    y: this.localPlayer.y - 30,
                 })
             },
             () => {}
         )
 
         addEventListener('visibilitychange', () => {
-            playerRef.remove()
+            this.playersRef.off()
+            this.localPlayer.ref.remove()
         })
     }
 
     gameLoop() {
         this.update()
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height)
+        this.ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
         this.render(this.ctx)
-        requestAnimationFrame(gameLoop)
+        requestAnimationFrame(this.gameLoop.bind(this))
     }
 
-    //FROM HERE - FIRST LEVEL SPECIFICS
+    //FROM HERE - MAIN SPACE SPECIFICS
 
     update() {
-        playerUpdate(playerId)
+        if (this.localPlayer) {
+            this.localPlayer.update()
+        }
     }
 
     render(ctx) {
@@ -120,26 +101,26 @@ class Game {
     }
 
     backgroundRender(ctx) {
-        ctx.font = '30px Arial'
+        ctx.font = '15px Arial'
         ctx.fillStyle = 'red'
         ctx.fillText(
             'How to play?: Left, Right, Up, Space. v1.0.0. More: https://npw.lt/#/code',
-            500,
+            250,
             100
         )
-        ctx.font = '10px Arial'
     }
 
     playersRender(ctx) {
         Object.keys(this.players).forEach((key) => {
-            ctx.fillStyle = players[key].color
-            ctx.fillRect(players[key].x, players[key].y, 30, 30)
+            ctx.fillStyle = this.players[key].color
+            ctx.fillRect(this.players[key].x, this.players[key].y, 30, 30)
             ctx.fillStyle = 'black'
             ctx.textAlign = 'center'
+            ctx.font = '10px Arial'
             ctx.fillText(
-                players[key].name,
-                players[key].x + 15,
-                players[key].y - 3
+                this.players[key].name,
+                this.players[key].x + 15,
+                this.players[key].y - 3
             )
         })
     }

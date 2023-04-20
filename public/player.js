@@ -1,30 +1,38 @@
-class Player {
-    velY = 0
-    velX = 0
-    contructor(game) {
-        this.playerId = playerId
+class LocalPlayer {
+    constructor(id, game) {
+        this.id = id
+        this.game = game
+        this.ref = firebase.database().ref(`players/${id}`)
+        this.x = Math.floor(Math.random() * (CANVAS_WIDTH - 30))
+        this.y = Math.floor(Math.random() * (CANVAS_HEIGHT - 30))
+
+        this.velX = 0
+        this.velY = 0
+
+        this.ref.set({
+            id: this.id,
+            name: RANDOM_NAME(),
+            color: RANDOM_COLOR(),
+            x: this.x,
+            y: this.y,
+        })
     }
 
     update() {
-        if (players[this.playerId]) {
-            this.velY += 1
-            let x = players[this.playerId].x
-            let y = players[this.playerId].y
-            x += velX
-            y += velY
+        this.velY += 1
 
-            if (y > canvas.height - 30) {
-                y = canvas.height - 30
-            }
-            if (x > canvas.width - 30) {
-                x = canvas.width - 30
-            }
-            if (x < 0) {
-                x = 0
-            }
+        this.x += this.velX
+        this.y += this.velY
 
-            playerRef.update({ x: x, y: y })
+        if (this.y > CANVAS_HEIGHT - 30) {
+            this.y = CANVAS_HEIGHT - 30
         }
+        if (this.x > CANVAS_WIDTH - 30) {
+            this.x = CANVAS_WIDTH - 30
+        }
+        if (this.x < 0) {
+            this.x = 0
+        }
+        this.ref.update({ x: this.x, y: this.y })
     }
-
 }

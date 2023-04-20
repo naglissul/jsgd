@@ -7,11 +7,8 @@
                 ".write": "auth != null && auth.uid == $uid"
             }
         },
-        "enemys": {
-            ".write": "auth != null"
-        },
-        "bullets": {
-            ".write": "auth != null"
+        "tiles": {
+            ".write": true
         }
     }
 }

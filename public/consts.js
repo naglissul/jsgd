@@ -1,14 +1,13 @@
 const CANVAS_HEIGHT = 500
 const CANVAS_WIDTH = 500
 
-const playerColors = ['blue', 'red', 'orange', 'yellow', 'green', 'purple']
-
-//Misc Helpers
-function randomFromArray(array) {
+//Misc helpers
+function RANDOM_COLOR() {
+    const array = ['blue', 'red', 'orange', 'yellow', 'green', 'purple']
     return array[Math.floor(Math.random() * array.length)]
 }
-function createName() {
-    const prefix = randomFromArray([
+function RANDOM_NAME() {
+    let array = [
         'COOL',
         'SUPER',
         'HIP',
@@ -26,8 +25,9 @@ function createName() {
         'SOFT',
         'BUFF',
         'DOPE',
-    ])
-    const animal = randomFromArray([
+    ]
+    const prefix = array[Math.floor(Math.random() * array.length)]
+    array = [
         'BEAR',
         'DOG',
         'CAT',
@@ -43,6 +43,7 @@ function createName() {
         'BULL',
         'BIRD',
         'BUG',
-    ])
+    ]
+    const animal = array[Math.floor(Math.random() * array.length)]
     return `${prefix} ${animal}`
 }
