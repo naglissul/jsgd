@@ -15,6 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Removed
 
+## [1.0.0] - 2023-04-21
+
+## Added
+
+-   COLORS
+-   Grid
+
+## Changed
+
+-   The whole idea of the game
+
 ## [0.2.1] - 2023-04-20
 
 ## Added
@@ -44,7 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Online multiplayer environment with HTML Canvas and Firebase
 -   No tests, no for phone, also lag
 
-[unreleased]: https://github.com/naglissul/jsgd/compare/v0.2.1...HEAD
+[unreleased]: https://github.com/naglissul/jsgd/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/naglissul/jsgd/compare/v0.2.1...v1.0.0
 [0.2.1]: https://github.com/naglissul/jsgd/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/naglissul/jsgd/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/naglissul/jsgd/releases/tag/v0.1.0

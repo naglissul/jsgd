@@ -1,9 +1,9 @@
 # JSGD - Java Script Game Development **or** Just Some Great Dancing :)
 
-Multiplayer web game, where players are jumping around the canvas, building blocks, defeating enemys and collecting coins  
+Multiplayer web game, where players are jumping around the canvas and trying to pixel-draw the mario
 Use this link to play: [jsgd.web.app](https://jsgd.web.app)
 Want to run on your localhost? Open CMD and go to the /nginx directory and run "nginx" command. And that's it  
-Current version: v0.2.1  
+Current version: v1.0.0
 Check the [CHANGELOG.md](/CHANGELOG.md) for more version descriptions  
 You can also find in separate files (or in this [link](https://npw.lt/#/code)): [LICENSE](/LICENCE.md), [TERMS AND CONDITIONS](/TERMSANDCONDITIONS.md), [PRIVACY POLICY](/PRIVACYPOLICY.md)  
 Other docs are in this file or be later written in separate places
