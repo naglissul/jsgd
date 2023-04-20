@@ -14,6 +14,7 @@ Other docs are in this file or be later written in separate places
 -   Vanilla Javascript - OOP structure
 -   Firebase anonymous auth & realtime db
 -   VS Code & Prettier
+-   Nginx - to host on localhost
 
 ## Deployment
 
