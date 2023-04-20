@@ -1,7 +1,8 @@
 # JavaScript GameDev Practise
 
 Multiplayer web game, where players are jumping around the canvas, building blocks, defeating enemys and collecting coins  
-Use this link to play: [jsgd.web.app](https://jsgd.web.app)  
+Use this link to play: [jsgd.web.app](https://jsgd.web.app)
+Want to run on your localhost? Open CMD and go to the /nginx directory and run "nginx" command. And that's it  
 Current version: v0.2.0  
 Check the [CHANGELOG.md](/CHANGELOG.md) for more version descriptions  
 You can also find in separate files (or later in this [link](https://npw.lt/#/code)): [LICENSE](/LICENCE.md), [TERMS AND CONDITIONS](/TERMSANDCONDITIONS.md), [PRIVACY POLICY](/PRIVACYPOLICY.md)  

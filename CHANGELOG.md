@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
+-   Nginx for hosting on localhost in order to test on mobiles
+
 ## Fixed
 
 ## Changed
