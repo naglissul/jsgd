@@ -70,7 +70,7 @@ class MultiplayerRoom {
         ctx.font = '15px Arial'
         ctx.fillStyle = 'red'
         ctx.fillText(
-            'How to play?: Left, Right, Up, Space. v1.0.0. More: https://npw.lt/#/code',
+            'How to play?: Left, Right, Up, Space. v0.2.0. More: https://npw.lt/#/code',
             250,
             100
         )
