@@ -5,6 +5,3 @@
     const ctx = canvas.getContext('2d')
     new Game(ctx)
 })()
-
-//bug - stil sends data when dead
-//canvas size

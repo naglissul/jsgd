@@ -6,6 +6,7 @@ class Game {
             if (localPlayerId) {
                 const localPlayer = new LocalPlayer(localPlayerId, this)
                 this.currentLevel = new MultiplayerRoom(localPlayer, this)
+                this.running = true
                 this.gameLoop()
             }
         })
@@ -31,9 +32,11 @@ class Game {
     }
 
     gameLoop() {
-        this.currentLevel.update()
-        this.ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-        this.currentLevel.render(this.ctx)
-        requestAnimationFrame(this.gameLoop.bind(this))
+        if (this.running) {
+            this.currentLevel.update()
+            this.ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+            this.currentLevel.render(this.ctx)
+            requestAnimationFrame(this.gameLoop.bind(this))
+        }
     }
 }

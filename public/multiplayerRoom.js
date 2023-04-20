@@ -49,6 +49,7 @@ class MultiplayerRoom {
         )
 
         addEventListener('visibilitychange', () => {
+            this.game.running = false
             this.playersRef.off()
             this.localPlayer.ref.remove()
         })
@@ -70,7 +71,7 @@ class MultiplayerRoom {
         ctx.font = '15px Arial'
         ctx.fillStyle = 'red'
         ctx.fillText(
-            'How to play?: Left, Right, Up, Space. v0.2.0. More: https://npw.lt/#/code',
+            'How to play?: Left, Right, Up, Space. v0.2.1. More: https://npw.lt/#/code',
             250,
             100
         )

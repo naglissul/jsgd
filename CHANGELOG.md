@@ -9,11 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
+## Fixed
+
+## Changed
+
+## Removed
+
+## [0.2.1] - 2023-04-20
+
+## Added
+
 -   Nginx for hosting on localhost in order to test on mobiles
 
 ## Fixed
 
+-   Player still sending data after game over
+
 ## Changed
+
+-   Canvas dimensions
 
 ## Removed
 
@@ -30,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Online multiplayer environment with HTML Canvas and Firebase
 -   No tests, no for phone, also lag
 
-[unreleased]: https://github.com/naglissul/jsgd/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/naglissul/jsgd/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/naglissul/jsgd/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/naglissul/jsgd/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/naglissul/jsgd/releases/tag/v0.1.0

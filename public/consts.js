@@ -1,5 +1,5 @@
-const CANVAS_HEIGHT = 500
-const CANVAS_WIDTH = 500
+const CANVAS_HEIGHT = 650
+const CANVAS_WIDTH = 1300
 
 //Misc helpers
 function RANDOM_COLOR() {
