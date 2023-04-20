@@ -2,7 +2,7 @@
 
 Multiplayer web game, where players are jumping around the canvas, building blocks, defeating enemys and collecting coins  
 Use this link to play: [jsgd.web.app](https://jsgd.web.app)  
-Current version: v0.1.0  
+Current version: v0.2.0  
 Check the [CHANGELOG.md](/CHANGELOG.md) for more version descriptions  
 You can also find in separate files (or later in this [link](https://npw.lt/#/code)): [LICENSE](/LICENCE.md), [TERMS AND CONDITIONS](/TERMSANDCONDITIONS.md), [PRIVACY POLICY](/PRIVACYPOLICY.md)  
 Other docs are in this file or be later written in separate places
