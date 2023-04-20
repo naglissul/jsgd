@@ -19,12 +19,14 @@ class MultiplayerRoom {
         })
 
         this.initListeners()
+        this.pixelArtBackground = new Image()
+        this.pixelArtBackground.src = 'assets/mario.png'
     }
 
     initListeners() {
         new KeyListener(
             'ArrowUp',
-            () => (this.localPlayer.velY = -20),
+            () => (this.localPlayer.velY = -10),
             () => {}
         )
         new KeyListener(
@@ -40,9 +42,46 @@ class MultiplayerRoom {
         new KeyListener(
             'Space',
             () => {
-                this.tilesRef.push({
-                    x: this.localPlayer.x,
-                    y: this.localPlayer.y - 30,
+                let x = Math.floor((this.localPlayer.x + 15) / 30) * 30
+                let y = Math.floor(this.localPlayer.y / 30 - 1) * 30
+                this.tilesRef.child(`${x}${y}`).once('value', (snapshot) => {
+                    if (!snapshot.exists()) {
+                        this.tilesRef.child(`${x}${y}`).set({
+                            x: x,
+                            y: y,
+                            color: COLORS[this.localPlayer.colorNumber],
+                        })
+                    }
+                })
+            },
+            () => {}
+        )
+        this.deletingListener = new KeyListener(
+            'Delete',
+            () => {
+                this.tilesRef.remove()
+            },
+            () => {}
+        )
+        new KeyListener(
+            'ControlRight',
+            () => {
+                this.localPlayer.colorNumber =
+                    (this.localPlayer.colorNumber + 1) % COLORS.length
+                this.localPlayer.ref.update({
+                    color: COLORS[this.localPlayer.colorNumber],
+                })
+            },
+            () => {}
+        )
+        new KeyListener(
+            'ControlLeft',
+            () => {
+                this.localPlayer.colorNumber =
+                    (this.localPlayer.colorNumber - 1 + COLORS.length) %
+                    COLORS.length
+                this.localPlayer.ref.update({
+                    color: COLORS[this.localPlayer.colorNumber],
                 })
             },
             () => {}
@@ -50,6 +89,7 @@ class MultiplayerRoom {
 
         addEventListener('visibilitychange', () => {
             this.game.running = false
+            this.deletingListener.unbind()
             this.playersRef.off()
             this.localPlayer.ref.remove()
         })
@@ -63,17 +103,20 @@ class MultiplayerRoom {
 
     render(ctx) {
         this.backgroundRender(ctx)
-        this.playersRender(ctx)
         this.tilesRender(ctx)
+        this.playersRender(ctx)
     }
 
     backgroundRender(ctx) {
+        //Picture
+        ctx.drawImage(this.pixelArtBackground, 300, 0)
+        //Text
         ctx.font = '15px Arial'
-        ctx.fillStyle = 'red'
+        ctx.fillStyle = 'black'
         ctx.fillText(
-            'How to play?: Left, Right, Up, Space. v0.2.1. More: https://npw.lt/#/code',
-            250,
-            100
+            'How to play?: Left, Right, Up, Space, Delete, ControlRight, ControlLeft. v0.2.2. More: https://npw.lt/#/code',
+            400,
+            20
         )
     }
 
@@ -89,12 +132,18 @@ class MultiplayerRoom {
                 this.players[key].x + 15,
                 this.players[key].y - 3
             )
+
+            //Shadow
+            ctx.strokeStyle = 'CadetBlue'
+            let x = Math.floor((this.localPlayer.x + 15) / 30) * 30
+            let y = Math.floor(this.localPlayer.y / 30 - 1) * 30
+            ctx.strokeRect(x, y, 30, 30)
         })
     }
 
     tilesRender(ctx) {
         Object.keys(this.tiles).forEach((key) => {
-            ctx.fillStyle = 'black'
+            ctx.fillStyle = this.tiles[key].color
             ctx.fillRect(this.tiles[key].x, this.tiles[key].y, 30, 30)
         })
     }

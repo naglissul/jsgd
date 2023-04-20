@@ -2,6 +2,10 @@ body {
     margin: 0;
     overflow-y: hidden;
     overflow-x: hidden;
-    background-size: cover;
-    transform: pixelated;
+}
+canvas {
+    border: solid 1px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
 }

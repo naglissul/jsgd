@@ -1,11 +1,36 @@
-const CANVAS_HEIGHT = 650
-const CANVAS_WIDTH = 1300
+const CANVAS_HEIGHT = 660
+const CANVAS_WIDTH = 1290
+const GRID_HEIGHT = CANVAS_HEIGHT / 30
+const GRID_WIDTH = CANVAS_WIDTH / 30
 
+const BLUNT_COLORS = [
+    '#FFBFBF',
+    '#BFFFBF',
+    '#BFBFFF',
+    '#FFFFBF',
+    '#BFFFFF',
+    '#FFBFFF',
+    '#E6E6E6',
+    '#D3B8A3',
+    '#FFE0B2',
+]
+
+const COLORS = [
+    '#E50000',
+    '#008000',
+    '#0000C8',
+    '#FFCC00',
+    '#00D8FF',
+    '#FF00FF',
+    '#6B6B6B',
+    '#80461B',
+    '#FFA047',
+]
 //Misc helpers
-function RANDOM_COLOR() {
-    const array = ['blue', 'red', 'orange', 'yellow', 'green', 'purple']
-    return array[Math.floor(Math.random() * array.length)]
+function RANDOM_COLOR_NUMBER() {
+    return Math.floor(Math.random() * COLORS.length)
 }
+
 function RANDOM_NAME() {
     const array = [
         'Sidney Oliver',

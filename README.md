@@ -1,11 +1,11 @@
-# JavaScript GameDev Practise
+# JSGD - Java Script Game Development **or** Just Some Great Dancing :)
 
 Multiplayer web game, where players are jumping around the canvas, building blocks, defeating enemys and collecting coins  
 Use this link to play: [jsgd.web.app](https://jsgd.web.app)
 Want to run on your localhost? Open CMD and go to the /nginx directory and run "nginx" command. And that's it  
 Current version: v0.2.1  
 Check the [CHANGELOG.md](/CHANGELOG.md) for more version descriptions  
-You can also find in separate files (or later in this [link](https://npw.lt/#/code)): [LICENSE](/LICENCE.md), [TERMS AND CONDITIONS](/TERMSANDCONDITIONS.md), [PRIVACY POLICY](/PRIVACYPOLICY.md)  
+You can also find in separate files (or in this [link](https://npw.lt/#/code)): [LICENSE](/LICENCE.md), [TERMS AND CONDITIONS](/TERMSANDCONDITIONS.md), [PRIVACY POLICY](/PRIVACYPOLICY.md)  
 Other docs are in this file or be later written in separate places
 
 ## Tech
@@ -40,3 +40,6 @@ Other docs are in this file or be later written in separate places
 -   -   Personal lobby for new player (need to pass to be able to play game with others). Appreas in a random point when enters main room
 -   v4.0.0 plans:
 -   -   Add line (in the center) gravity
+        OR
+-   v1.0.0 - Players draw pixel art
+-   v2.0.0 - You can upload picture and it will be pixelated for the game
