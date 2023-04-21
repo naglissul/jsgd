@@ -66,8 +66,8 @@ class PixelArtRoom {
             },
             () => {}
         )
-        this.deletingListener = new KeyListener(
-            'Delete',
+        new KeyListener(
+            'Escape',
             () => {
                 this.tilesRef.remove()
                 this.won = false
@@ -75,7 +75,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            'ControlRight',
+            'KeyD',
             () => {
                 this.localPlayer.colorNumber =
                     (this.localPlayer.colorNumber + 1) % COLORS.length
@@ -86,7 +86,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            'ControlLeft',
+            'KeyA',
             () => {
                 this.localPlayer.colorNumber =
                     (this.localPlayer.colorNumber - 1 + COLORS.length) %
@@ -100,10 +100,17 @@ class PixelArtRoom {
 
         addEventListener('visibilitychange', () => {
             this.game.running = false
-            this.deletingListener.unbind()
             this.playersRef.off()
             this.localPlayer.ref.remove()
             this.game.canvas.style.filter = 'blur(5px)'
+            const sorry = document.createElement('h1')
+            sorry.textContent =
+                'Sorry, the focus was gone. You need to refresh the page...'
+            sorry.style.position = 'absolute'
+            sorry.style.display = 'block'
+            sorry.style.margin = 'auto'
+            sorry.style.textAlign = 'center'
+            document.body.appendChild(sorry)
         })
     }
 
@@ -134,7 +141,7 @@ class PixelArtRoom {
         ctx.font = '15px Arial'
         ctx.fillStyle = 'black'
         ctx.fillText(
-            'How to play?: Left, Right, Up, Space, Delete, ControlRight, ControlLeft. v1.0.0. More: https://npw.lt/#/code',
+            'How to play?: Left, Right, Up, Space, Esc, A, D. v1.1.0. More: https://npw.lt/#/code',
             400,
             20
         )
