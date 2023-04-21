@@ -1,4 +1,4 @@
-class MultiplayerRoom {
+class PixelArtRoom {
     players = {}
     tiles = {}
     playersRef = firebase.database().ref('players')
@@ -103,6 +103,7 @@ class MultiplayerRoom {
             this.deletingListener.unbind()
             this.playersRef.off()
             this.localPlayer.ref.remove()
+            this.game.canvas.style.filter = 'blur(5px)'
         })
     }
 

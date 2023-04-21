@@ -1,11 +1,15 @@
 class Game {
-    constructor(ctx) {
-        this.ctx = ctx
+    constructor(canvas, name) {
+        this.canvas = canvas
+        this.canvas.width = CANVAS_WIDTH
+        this.canvas.height = CANVAS_HEIGHT
+
+        this.ctx = this.canvas.getContext('2d')
         this.firebaseSignIn((user) => {
             const localPlayerId = user.uid
             if (localPlayerId) {
-                const localPlayer = new LocalPlayer(localPlayerId, this)
-                this.currentLevel = new MultiplayerRoom(localPlayer, this)
+                const localPlayer = new LocalPlayer(localPlayerId, name, this)
+                this.currentLevel = new PixelArtRoom(localPlayer, this)
                 this.running = true
                 this.gameLoop()
             }
