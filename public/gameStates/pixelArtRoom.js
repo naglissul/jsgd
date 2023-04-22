@@ -8,6 +8,7 @@ class PixelArtRoom {
         this.localPlayer = localPlayer
         this.game = game
         this.won = false
+        this.showTiles = true
 
         this.playersRef.on('value', (snapshot) => {
             this.players = snapshot.val() || {}
@@ -48,25 +49,35 @@ class PixelArtRoom {
             () => {
                 let x = Math.floor((this.localPlayer.x + 15) / 30) * 30
                 let y = Math.floor(this.localPlayer.y / 30 - 1) * 30
-                this.tilesRef.child(`${x}${y}`).once('value', (snapshot) => {
-                    if (snapshot.exists()) {
-                        this.tilesRef.child(`${x}${y}`).update({
-                            x: x,
-                            y: y,
-                            color: COLORS[this.localPlayer.colorNumber],
+                if (y >= 0) {
+                    this.tilesRef
+                        .child(`${x}${y}`)
+                        .once('value', (snapshot) => {
+                            if (snapshot.exists()) {
+                                if (WINNING_TILES.hasOwnProperty(`${x}${y}`)) {
+                                    this.tilesRef.child(`${x}${y}`).update({
+                                        x: x,
+                                        y: y,
+                                        color: COLORS[
+                                            this.localPlayer.colorNumber
+                                        ],
+                                    })
+                                } else {
+                                    this.tilesRef.child(`${x}${y}`).remove()
+                                }
+                            } else {
+                                this.tilesRef.child(`${x}${y}`).set({
+                                    x: x,
+                                    y: y,
+                                    color: COLORS[this.localPlayer.colorNumber],
+                                })
+                            }
                         })
-                    } else {
-                        this.tilesRef.child(`${x}${y}`).set({
-                            x: x,
-                            y: y,
-                            color: COLORS[this.localPlayer.colorNumber],
-                        })
-                    }
-                })
+                }
             },
             () => {}
         )
-        new KeyListener(
+        this.deletingKey = new KeyListener(
             'Escape',
             () => {
                 this.tilesRef.remove()
@@ -97,10 +108,20 @@ class PixelArtRoom {
             },
             () => {}
         )
+        new KeyListener(
+            'KeyS',
+            () => {
+                this.showTiles = false
+            },
+            () => {
+                this.showTiles = true
+            }
+        )
 
         addEventListener('visibilitychange', () => {
             this.game.running = false
             this.playersRef.off()
+            this.deletingKey.unbind()
             this.localPlayer.ref.remove()
             this.game.canvas.style.filter = 'blur(5px)'
             const sorry = document.createElement('h1')
@@ -122,7 +143,9 @@ class PixelArtRoom {
 
     render(ctx) {
         this.backgroundRender(ctx)
-        this.tilesRender(ctx)
+        if (this.showTiles) {
+            this.tilesRender(ctx)
+        }
         this.playersRender(ctx)
 
         if (this.won) {
@@ -130,7 +153,7 @@ class PixelArtRoom {
             ctx.fillStyle = 'green'
             ctx.fillText('YOU DID IT! YOU FINALLY WON! CONGRATS!', 650, 200)
             ctx.font = '15px Courier bold'
-            ctx.fillText("press 'delete' to restart", 1000, 250)
+            ctx.fillText("press 'Esc' to restart", 1000, 250)
         }
     }
 
@@ -141,9 +164,17 @@ class PixelArtRoom {
         ctx.font = '15px Arial'
         ctx.fillStyle = 'black'
         ctx.fillText(
-            'How to play?: Left, Right, Up, Space, Esc, A, D. v1.1.0. More: https://npw.lt/#/code',
+            'How to play?: Left, Right, Up, Space, Esc, A, D, S. v1.1.0. More: https://npw.lt/#/code',
             400,
             20
+        )
+        ctx.font = '30px Arial'
+        ctx.fillText(
+            `${this.countEqual(WINNING_TILES, this.tiles)}/${
+                Object.keys(WINNING_TILES).length
+            }`,
+            645,
+            100
         )
     }
 
@@ -188,5 +219,18 @@ class PixelArtRoom {
             }
         }
         return true
+    }
+
+    countEqual(object1, object2) {
+        let count = 0
+        const keys1 = Object.keys(object1)
+        for (let key of keys1) {
+            if (object2.hasOwnProperty(key)) {
+                if (object1[key].color === object2[key].color) {
+                    count = count + 1
+                }
+            }
+        }
+        return count
     }
 }
