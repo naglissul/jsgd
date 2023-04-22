@@ -164,7 +164,7 @@ class PixelArtRoom {
         ctx.font = '15px Arial'
         ctx.fillStyle = 'black'
         ctx.fillText(
-            'How to play?: Left, Right, Up, Space, Esc, A, D, S. v1.1.0. More: https://npw.lt/#/code',
+            'How to play?: Left, Right, Up, Space, Esc, A, D, S. v1.1.1. More: https://npw.lt/#/code',
             400,
             20
         )
