@@ -26,6 +26,22 @@ class PixelArtRoom {
         this.initListeners()
         this.pixelArtBackground = new Image()
         this.pixelArtBackground.src = 'assets/mario.png'
+        this.keyA = new Image()
+        this.keyA.src = 'assets/a.png'
+        this.keyS = new Image()
+        this.keyS.src = 'assets/s.png'
+        this.keyD = new Image()
+        this.keyD.src = 'assets/d.png'
+        this.keyEsc = new Image()
+        this.keyEsc.src = 'assets/esc.png'
+        this.keySpace = new Image()
+        this.keySpace.src = 'assets/space.png'
+        this.keyLeft = new Image()
+        this.keyLeft.src = 'assets/left.png'
+        this.keyRight = new Image()
+        this.keyRight.src = 'assets/right.png'
+        this.keyUp = new Image()
+        this.keyUp.src = 'assets/up.png'
     }
 
     initListeners() {
@@ -160,14 +176,20 @@ class PixelArtRoom {
     backgroundRender(ctx) {
         //Picture
         ctx.drawImage(this.pixelArtBackground, 300, 0)
+
+        ctx.drawImage(this.keyLeft, 20, 100, 50, 50)
+        ctx.drawImage(this.keyUp, 70, 50, 50, 50)
+        ctx.drawImage(this.keyRight, 120, 100, 50, 50)
+        ctx.drawImage(this.keySpace, 20, 200, 150, 50)
+        ctx.drawImage(this.keyA, 20, 300, 50, 50)
+        ctx.drawImage(this.keyD, 120, 300, 50, 50)
+        ctx.drawImage(this.keyS, 20, 400, 50, 50)
+        ctx.drawImage(this.keyEsc, 20, 500, 50, 50)
+
         //Text
         ctx.font = '15px Arial'
         ctx.fillStyle = 'black'
-        ctx.fillText(
-            'How to play?: Left, Right, Up, Space, Esc, A, D, S. v1.1.1. More: https://npw.lt/#/code',
-            400,
-            20
-        )
+        ctx.fillText('JSGD v1.1.1      More: https://npw.lt/#/code', 200, 20)
         ctx.font = '30px Arial'
         ctx.fillText(
             `${this.countEqual(WINNING_TILES, this.tiles)}/${

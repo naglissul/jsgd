@@ -23,7 +23,6 @@ function nameGiven(name) {
     new Game(canvas, name)
 }
 //make work and not lag for mac and mobile
-//name autocomplete
 //congrats something more
 
 //Continue with the original idea
