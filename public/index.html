@@ -30,11 +30,20 @@
         <script defer src="main.js"></script>
     </head>
     <body>
-        <input
-            type="text"
-            placeholder="Enter your name"
-            onkeydown="if (event.keyCode === 13) { nameGiven(this.value); return false; }"
-            autofocus
-        />
+        <div id="inputbox">
+            <input
+                type="text"
+                placeholder="Enter your name"
+                onkeydown="if (event.keyCode === 13) {
+                                this.parentNode.classList.add('foranimation');
+                                const tempname = this.value;
+                                setTimeout(function() {
+                                    nameGiven(tempname); 
+                                    return false; 
+                                }, 500);
+                            }"
+                autofocus
+            />
+        </div>
     </body>
 </html>

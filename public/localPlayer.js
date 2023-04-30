@@ -4,7 +4,7 @@ class LocalPlayer {
         this.game = game
         this.ref = firebase.database().ref(`players/${id}`)
         this.x = Math.floor(Math.random() * (CANVAS_WIDTH - 30))
-        this.y = Math.floor(Math.random() * (CANVAS_HEIGHT - 30))
+        this.y = 500
         this.colorNumber = RANDOM_COLOR_NUMBER()
         this.name = name ? name : RANDOM_NAME()
         this.velX = 0
@@ -19,11 +19,10 @@ class LocalPlayer {
         })
     }
 
-    update() {
+    update(elapsedTime) {
+        this.x += this.velX * (elapsedTime / 1000)
+        this.y += this.velY * (elapsedTime / 1000)
         this.velY += 0.5
-
-        this.x += this.velX
-        this.y += this.velY
 
         if (this.y > CANVAS_HEIGHT - 30) {
             this.velY = -this.velY + 10
@@ -35,6 +34,13 @@ class LocalPlayer {
         if (this.x < 0) {
             this.x = 0
         }
-        this.ref.update({ x: this.x, y: this.y })
+        if (
+            !isNaN(this.x) &&
+            typeof this.x === 'number' &&
+            !isNaN(this.y) &&
+            typeof this.y === 'number'
+        ) {
+            this.ref.update({ x: this.x, y: this.y })
+        }
     }
 }

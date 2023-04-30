@@ -18,6 +18,8 @@
 
 function nameGiven(name) {
     document.querySelector('input').remove()
+    document.querySelector('#inputbox').remove()
+
     const canvas = document.createElement('canvas')
     document.body.appendChild(canvas)
     new Game(canvas, name)

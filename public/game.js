@@ -11,7 +11,7 @@ class Game {
                 const localPlayer = new LocalPlayer(localPlayerId, name, this)
                 this.currentLevel = new PixelArtRoom(localPlayer, this)
                 this.running = true
-                this.gameLoop()
+                this.gameLoop(performance.now())
             }
         })
     }
@@ -35,12 +35,16 @@ class Game {
             })
     }
 
-    gameLoop() {
+    gameLoop(currentTime) {
         if (this.running) {
-            this.currentLevel.update()
+            const elapsedTime = currentTime - this.lastTime
+            this.lastTime = currentTime
+
+            this.currentLevel.update(elapsedTime * 60)
             this.ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
             this.currentLevel.render(this.ctx)
-            requestAnimationFrame(this.gameLoop.bind(this))
+
+            requestAnimationFrame((time) => this.gameLoop(time))
         }
     }
 }

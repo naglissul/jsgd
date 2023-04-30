@@ -7,8 +7,9 @@ class PixelArtRoom {
     constructor(localPlayer, game) {
         this.localPlayer = localPlayer
         this.game = game
-        this.won = false
+        this.won = true
         this.showTiles = true
+        this.framei = 0
 
         this.playersRef.on('value', (snapshot) => {
             this.players = snapshot.val() || {}
@@ -23,25 +24,18 @@ class PixelArtRoom {
             }
         })
 
+        let serverRef = firebase.database().ref('server')
+        serverRef.on('value', (snapshot) => {
+            this.isServerRunning = snapshot.val().isRunning === 'true'
+        })
+
         this.initListeners()
         this.pixelArtBackground = new Image()
         this.pixelArtBackground.src = 'assets/mario.png'
-        this.keyA = new Image()
-        this.keyA.src = 'assets/a.png'
-        this.keyS = new Image()
-        this.keyS.src = 'assets/s.png'
-        this.keyD = new Image()
-        this.keyD.src = 'assets/d.png'
-        this.keyEsc = new Image()
-        this.keyEsc.src = 'assets/esc.png'
-        this.keySpace = new Image()
-        this.keySpace.src = 'assets/space.png'
-        this.keyLeft = new Image()
-        this.keyLeft.src = 'assets/left.png'
-        this.keyRight = new Image()
-        this.keyRight.src = 'assets/right.png'
-        this.keyUp = new Image()
-        this.keyUp.src = 'assets/up.png'
+        this.keys = new Image()
+        this.keys.src = 'assets/keys.png'
+        this.wingif = new Image()
+        this.wingif.src = 'assets/winsprtsheet.png'
     }
 
     initListeners() {
@@ -98,6 +92,7 @@ class PixelArtRoom {
             () => {
                 this.tilesRef.remove()
                 this.won = false
+                this.framei = 0
             },
             () => {}
         )
@@ -151,14 +146,29 @@ class PixelArtRoom {
         })
     }
 
-    update() {
+    update(elapsedTime) {
         if (this.localPlayer) {
-            this.localPlayer.update()
+            this.localPlayer.update(elapsedTime)
+            if (this.framei == 1) this.tilesRef.remove()
+            if (this.framei < 245 && this.won) this.framei += 1
         }
     }
 
     render(ctx) {
         this.backgroundRender(ctx)
+        if (this.won) {
+            ctx.drawImage(
+                this.wingif,
+                Math.floor(this.framei / 5) * 660,
+                0,
+                660,
+                660,
+                330,
+                -300,
+                960,
+                960
+            )
+        }
         if (this.showTiles) {
             this.tilesRender(ctx)
         }
@@ -167,7 +177,7 @@ class PixelArtRoom {
         if (this.won) {
             ctx.font = '30px Courier bold'
             ctx.fillStyle = 'green'
-            ctx.fillText('YOU DID IT! YOU FINALLY WON! CONGRATS!', 650, 200)
+            ctx.fillText('FINALLY! Thx for setting Mario free :)', 650, 200)
             ctx.font = '15px Courier bold'
             ctx.fillText("press 'Esc' to restart", 1000, 250)
         }
@@ -175,29 +185,40 @@ class PixelArtRoom {
 
     backgroundRender(ctx) {
         //Picture
-        ctx.drawImage(this.pixelArtBackground, 300, 0)
+        if (!this.won) {
+            ctx.drawImage(this.pixelArtBackground, 300, 0)
+        }
 
-        ctx.drawImage(this.keyLeft, 20, 100, 50, 50)
-        ctx.drawImage(this.keyUp, 70, 50, 50, 50)
-        ctx.drawImage(this.keyRight, 120, 100, 50, 50)
-        ctx.drawImage(this.keySpace, 20, 200, 150, 50)
-        ctx.drawImage(this.keyA, 20, 300, 50, 50)
-        ctx.drawImage(this.keyD, 120, 300, 50, 50)
-        ctx.drawImage(this.keyS, 20, 400, 50, 50)
-        ctx.drawImage(this.keyEsc, 20, 500, 50, 50)
+        ctx.drawImage(this.keys, 20, 20, 390, 600)
 
         //Text
         ctx.font = '15px Arial'
         ctx.fillStyle = 'black'
-        ctx.fillText('JSGD v1.1.1      More: https://npw.lt/#/code', 200, 20)
-        ctx.font = '30px Arial'
+        ctx.textAlign = 'center'
+        ctx.fillText('JSGD v1.2.0', 1150, 30)
+        ctx.textAlign = 'left'
+        ctx.fillText('All players are being sacrificed to the', 1020, 60)
+        ctx.fillText('God of Clean Database at midnight UTC.', 1020, 90)
+        ctx.fillStyle = this.isServerRunning ? 'green' : 'red'
+        ctx.textAlign = 'center'
+
         ctx.fillText(
-            `${this.countEqual(WINNING_TILES, this.tiles)}/${
-                Object.keys(WINNING_TILES).length
-            }`,
-            645,
-            100
+            `Server is: ${this.isServerRunning ? 'running' : 'not running'}`,
+            1150,
+            120
         )
+        ctx.fillStyle = 'black'
+        ctx.fillText('More: https://npw.lt/#/code', 1150, 150)
+        ctx.font = '30px Arial'
+        if (!this.won) {
+            ctx.fillText(
+                `${this.countEqual(WINNING_TILES, this.tiles)}/${
+                    Object.keys(WINNING_TILES).length
+                }`,
+                645,
+                100
+            )
+        }
     }
 
     playersRender(ctx) {
