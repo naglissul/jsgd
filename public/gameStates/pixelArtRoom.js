@@ -40,27 +40,31 @@ class PixelArtRoom {
 
     initListeners() {
         new KeyListener(
-            [ 'ArrowDown', 'KeyJ' ],
-            () => (this.localPlayer.velY = 0),
-            () => {},
+            ['ArrowDown', 'KeyJ'],
+            () => {
+                this.localPlayer.midair = true
+            },
+            () => {
+                this.localPlayer.midair = false
+            }
         )
         new KeyListener(
-            [ 'ArrowUp', 'KeyK' ],
+            ['ArrowUp', 'KeyK'],
             () => (this.localPlayer.velY = -10),
             () => {}
         )
         new KeyListener(
-            [ 'ArrowLeft', 'KeyH'],
+            ['ArrowLeft', 'KeyH'],
             () => (this.localPlayer.velX = -10),
             () => (this.localPlayer.velX = 0)
         )
         new KeyListener(
-            [ 'ArrowRight', 'KeyL' ],
+            ['ArrowRight', 'KeyL'],
             () => (this.localPlayer.velX = 10),
             () => (this.localPlayer.velX = 0)
         )
         new KeyListener(
-            [ 'Space' ],
+            ['Space'],
             () => {
                 let x = Math.floor((this.localPlayer.x + 15) / 30) * 30
                 let y = Math.floor(this.localPlayer.y / 30 - 1) * 30
@@ -93,7 +97,7 @@ class PixelArtRoom {
             () => {}
         )
         this.deletingKey = new KeyListener(
-            [ 'Escape' ],
+            ['Escape'],
             () => {
                 this.tilesRef.remove()
                 this.won = false
@@ -102,7 +106,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            [ 'KeyD' ],
+            ['KeyD'],
             () => {
                 this.localPlayer.colorNumber =
                     (this.localPlayer.colorNumber + 1) % COLORS.length
@@ -113,7 +117,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            [ 'KeyA' ],
+            ['KeyA'],
             () => {
                 this.localPlayer.colorNumber =
                     (this.localPlayer.colorNumber - 1 + COLORS.length) %
@@ -125,7 +129,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            [ 'KeyS' ],
+            ['KeyS'],
             () => {
                 this.showTiles = false
             },
