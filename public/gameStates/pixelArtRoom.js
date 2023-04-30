@@ -40,22 +40,27 @@ class PixelArtRoom {
 
     initListeners() {
         new KeyListener(
-            'ArrowUp',
+            [ 'ArrowDown', 'KeyJ' ],
+            () => (this.localPlayer.velY = 0),
+            () => {},
+        )
+        new KeyListener(
+            [ 'ArrowUp', 'KeyK' ],
             () => (this.localPlayer.velY = -10),
             () => {}
         )
         new KeyListener(
-            'ArrowLeft',
+            [ 'ArrowLeft', 'KeyH'],
             () => (this.localPlayer.velX = -10),
             () => (this.localPlayer.velX = 0)
         )
         new KeyListener(
-            'ArrowRight',
+            [ 'ArrowRight', 'KeyL' ],
             () => (this.localPlayer.velX = 10),
             () => (this.localPlayer.velX = 0)
         )
         new KeyListener(
-            'Space',
+            [ 'Space' ],
             () => {
                 let x = Math.floor((this.localPlayer.x + 15) / 30) * 30
                 let y = Math.floor(this.localPlayer.y / 30 - 1) * 30
@@ -88,7 +93,7 @@ class PixelArtRoom {
             () => {}
         )
         this.deletingKey = new KeyListener(
-            'Escape',
+            [ 'Escape' ],
             () => {
                 this.tilesRef.remove()
                 this.won = false
@@ -97,7 +102,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            'KeyD',
+            [ 'KeyD' ],
             () => {
                 this.localPlayer.colorNumber =
                     (this.localPlayer.colorNumber + 1) % COLORS.length
@@ -108,7 +113,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            'KeyA',
+            [ 'KeyA' ],
             () => {
                 this.localPlayer.colorNumber =
                     (this.localPlayer.colorNumber - 1 + COLORS.length) %
@@ -120,7 +125,7 @@ class PixelArtRoom {
             () => {}
         )
         new KeyListener(
-            'KeyS',
+            [ 'KeyS' ],
             () => {
                 this.showTiles = false
             },
