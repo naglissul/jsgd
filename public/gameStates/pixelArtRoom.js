@@ -7,7 +7,7 @@ class PixelArtRoom {
     constructor(localPlayer, game) {
         this.localPlayer = localPlayer
         this.game = game
-        this.won = true
+        this.won = false
         this.showTiles = true
         this.framei = 0
 
