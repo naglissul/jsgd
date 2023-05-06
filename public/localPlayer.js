@@ -9,6 +9,7 @@ class LocalPlayer {
         this.name = name ? name : RANDOM_NAME()
         this.velX = 0
         this.velY = 0
+        this.midair = false
 
         this.ref.set({
             id: this.id,
@@ -22,7 +23,11 @@ class LocalPlayer {
     update(elapsedTime) {
         this.x += this.velX * (elapsedTime / 1000)
         this.y += this.velY * (elapsedTime / 1000)
-        this.velY += 0.5
+        if (!this.midair) {
+            this.velY += 0.5
+        } else {
+            this.velY = 0.5
+        }
 
         if (this.y > CANVAS_HEIGHT - 30) {
             this.velY = -this.velY + 10

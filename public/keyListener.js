@@ -1,12 +1,12 @@
 class KeyListener {
-    constructor(keyCode, callback, callbackUp) {
+    constructor(keyCodes, callback, callbackUp) {
         this.keydownFunction = function (event) {
-            if (event.code === keyCode) {
+            if (keyCodes.some((code) => code === event.code)) {
                 callback()
             }
         }
         this.keyupFunction = function (event) {
-            if (event.code === keyCode) {
+            if (keyCodes.some((code) => code === event.code)) {
                 callbackUp()
             }
         }
