@@ -198,7 +198,7 @@ class PixelArtRoom {
             ctx.drawImage(this.pixelArtBackground, 300, 0)
         }
 
-        ctx.drawImage(this.keys, 20, 20, 390, 600)
+        ctx.drawImage(this.keys, 20, 20, 420, 600)
 
         //Text
         ctx.font = '15px Arial'
