@@ -73,17 +73,7 @@ class PixelArtRoom {
                         .child(`${x}${y}`)
                         .once('value', (snapshot) => {
                             if (snapshot.exists()) {
-                                if (WINNING_TILES.hasOwnProperty(`${x}${y}`)) {
-                                    this.tilesRef.child(`${x}${y}`).update({
-                                        x: x,
-                                        y: y,
-                                        color: COLORS[
-                                            this.localPlayer.colorNumber
-                                        ],
-                                    })
-                                } else {
-                                    this.tilesRef.child(`${x}${y}`).remove()
-                                }
+                                this.tilesRef.child(`${x}${y}`).remove()
                             } else {
                                 this.tilesRef.child(`${x}${y}`).set({
                                     x: x,
