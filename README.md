@@ -1,6 +1,6 @@
 # JSGD - Java Script Game Development **or** Just Some Great Dancing :)
 
-Multiplayer web game, where players are jumping around the canvas and trying to pixel-draw the mario.
+Multiplayer web game, where players are jumping around the canvas trying to pixel-draw the mario.
 
 Use this link to play: [jsgd.web.app](https://jsgd.web.app)
 
@@ -25,7 +25,6 @@ or here: [link](https://npw.lt/#/code)
 -   Vanilla Javascript - OOP structure
 -   Firebase anonymous auth & realtime db
 -   VS Code & Prettier
--   Nginx - to host on localhost
 
 ## Deployment
 
@@ -35,11 +34,11 @@ or here: [link](https://npw.lt/#/code)
 
 ## More about the program
 
-### Run on localhost
+### Run on your local machine
 
-Open CMD and go to the ./nginx/ directory and run "nginx" command. And that's it.
+Just open ./public/index.html file in your browser
 
-### Run server side
+### Server side deployment process
 
 1. Server side is being hosted on linux server, using Linode services
 2. ./serverSide/ files (without node modules) together with additional admin-private.json file (with firebase admin data) are transfered to the server:

@@ -12,6 +12,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Stop mid-air (ArrowDown)
 -   Key bindings (H, J, K, L)
 
+## Fixed
+
+-   Docs
+
+## Changed
+
+-   Pixel deleting logic - now pixel is always just toggled
+
+## Removed
+
+-   Nginx
+
 ## [1.2.0]
 
 ## Added

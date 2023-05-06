@@ -16,17 +16,28 @@ serverRef.set({ isRunning: 'true' })
 //Whiping players
 let playersRef = db.ref('players')
 
-const now = new Date()
-let millisTill927 =
-    new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 0, 0, 0) -
-    now
-if (millisTill927 < 0) {
-    millisTill927 += 86400000
-}
-setTimeout(function () {
-    console.log('Midnight')
-    playersRef.remove()
-}, millisTill927)
+let players
+playersRef.on('value', (snapshot) => {
+    players = snapshot.val() || {}
+})
+
+let prevPlayers = {}
+
+setInterval(function () {
+    const keys1 = Object.keys(players)
+    for (let key of keys1) {
+        if (prevPlayers.hasOwnProperty(key)) {
+            if (
+                prevPlayers[key].x === players[key].x &&
+                prevPlayers[key].y === players[key].y
+            ) {
+                db.ref(`players/${key}`).remove()
+                console.log(key + ' removed')
+            }
+        }
+    }
+    prevPlayers = players
+}, 60000)
 
 //Before exiting
 process.on('SIGINT', () => {
