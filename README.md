@@ -1,4 +1,4 @@
-![LOGO](/public/assets/LOGO.png)
+<img align="right" src="/public/assets/LOGO.png" data-canonical-src="/public/assets/LOGO.png" width="200" height="200"  />  
 
 # JSGD - Java Script Game Development **or** Just Some Great Dancing :)
 
