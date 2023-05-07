@@ -13,8 +13,9 @@ class PixelArtRoom {
 
         this.playersRef.on('value', (snapshot) => {
             this.players = snapshot.val() || {}
-            localPlayer.x = this.players[localPlayer.id].x
-            localPlayer.y = this.players[localPlayer.id].y
+
+            localPlayer.x = this.players[localPlayer.id]?.x
+            localPlayer.y = this.players[localPlayer.id]?.y
         })
 
         this.tilesRef.on('value', (snapshot) => {
@@ -129,25 +130,22 @@ class PixelArtRoom {
         )
 
         addEventListener('visibilitychange', () => {
-            this.game.running = false
-            this.playersRef.off()
-            this.deletingKey.unbind()
             this.localPlayer.ref.remove()
-            this.game.canvas.style.filter = 'blur(5px)'
-            const sorry = document.createElement('h1')
-            sorry.textContent =
-                'Sorry, the focus was gone. You need to refresh the page...'
-            sorry.style.position = 'absolute'
-            sorry.style.display = 'block'
-            sorry.style.margin = 'auto'
-            sorry.style.textAlign = 'center'
-            document.body.appendChild(sorry)
         })
     }
 
     update(elapsedTime) {
         if (this.localPlayer) {
-            this.localPlayer.update(elapsedTime)
+            if (this.players[this.localPlayer.id]?.name) {
+                this.localPlayer.update(elapsedTime)
+            } else {
+                this.localPlayer = new LocalPlayer(
+                    this.game.localPlayerId,
+                    this.game.playerName,
+                    this.game
+                )
+            }
+
             if (this.framei == 1) this.tilesRef.remove()
             if (this.framei < 245 && this.won) this.framei += 1
         }
@@ -171,6 +169,7 @@ class PixelArtRoom {
         if (this.showTiles) {
             this.tilesRender(ctx)
         }
+
         this.playersRender(ctx)
 
         if (this.won) {
@@ -194,20 +193,19 @@ class PixelArtRoom {
         ctx.font = '15px Arial'
         ctx.fillStyle = 'black'
         ctx.textAlign = 'center'
-        ctx.fillText('JSGD v1.2.0', 1150, 30)
+        ctx.fillText('JSGD v1.3.0', 1150, 30)
         ctx.textAlign = 'left'
-        ctx.fillText('All players are being sacrificed to the', 1020, 60)
-        ctx.fillText('God of Clean Database at midnight UTC.', 1020, 90)
+        ctx.fillText('Player is refreshed every 60s when frozen', 1000, 60)
         ctx.fillStyle = this.isServerRunning ? 'green' : 'red'
         ctx.textAlign = 'center'
 
         ctx.fillText(
             `Server is: ${this.isServerRunning ? 'running' : 'not running'}`,
             1150,
-            120
+            90
         )
         ctx.fillStyle = 'black'
-        ctx.fillText('More: https://npw.lt/#/code', 1150, 150)
+        ctx.fillText('More: https://npw.lt/#/code', 1150, 120)
         ctx.font = '30px Arial'
         if (!this.won) {
             ctx.fillText(

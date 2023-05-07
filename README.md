@@ -2,11 +2,12 @@
 
 Multiplayer web game, where players are jumping around the canvas trying to pixel-draw the mario.
 
-Use this link to play: [jsgd.web.app](https://jsgd.web.app)
+Use this link to play: [jsgd.web.app](https://jsgd.web.app)  
+For movement you can also use H J K L keys.
 
 ## About
 
-Current version: v1.2.0
+Current version: v1.3.0
 
 Check the [CHANGELOG.md](/CHANGELOG.md) for more version descriptions.
 
