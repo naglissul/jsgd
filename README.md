@@ -1,9 +1,13 @@
+![LOGO](/public/assets/LOGO.png)
+
 # JSGD - Java Script Game Development **or** Just Some Great Dancing :)
 
 Multiplayer web game, where players are jumping around the canvas trying to pixel-draw the mario.
 
 Use this link to play: [jsgd.web.app](https://jsgd.web.app)  
 For movement you can also use H J K L keys.
+
+© Naglis Šuliokas 2023
 
 ## About
 
@@ -17,7 +21,11 @@ You can also find some useless pseudo-legal docs here:
 -   [TERMS AND CONDITIONS](/TERMSANDCONDITIONS.md)
 -   [PRIVACY POLICY](/PRIVACYPOLICY.md)
 
-or here: [link](https://npw.lt/#/code)
+or here: [website](https://npw.lt/#/code)
+
+## Screenshots
+
+![Screenshot](/public/assets/SS.png)
 
 ## Tech
 
