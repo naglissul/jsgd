@@ -25,6 +25,7 @@ or here: [website](https://npw.lt/#/code)
 
 ## Screenshots
 
+![Screenshot2](/public/assets/SS2.png)  
 ![Screenshot](/public/assets/SS.png)
 
 ## Tech
