@@ -1,8 +1,8 @@
-<img align="right" src="/public/assets/LOGO.png" data-canonical-src="/public/assets/LOGO.png" width="200" height="200"  />  
+<img align="right" src="/public/assets/LOGO.png" data-canonical-src="/public/assets/LOGO.png" width="200" height="200"  />
 
 # JSGD - Java Script Game Development **or** Just Some Great Dancing :)
 
-Multiplayer web game, where players are jumping around the canvas trying to pixel-draw the mario.
+Multiplayer web game, where players are jumping around the canvas trying to pixel-draw the cave explorer Macro.
 
 Use this link to play: [jsgd.web.app](https://jsgd.web.app)  
 For movement you can also use H J K L keys.
@@ -11,7 +11,7 @@ For movement you can also use H J K L keys.
 
 ## About
 
-Current version: v1.3.0
+Current version: v1.3.1
 
 Check the [CHANGELOG.md](/CHANGELOG.md) for more version descriptions.
 

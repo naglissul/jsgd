@@ -32,7 +32,7 @@ class PixelArtRoom {
 
         this.initListeners()
         this.pixelArtBackground = new Image()
-        this.pixelArtBackground.src = 'assets/mario.png'
+        this.pixelArtBackground.src = 'assets/macro.png'
         this.keys = new Image()
         this.keys.src = 'assets/keys.png'
         this.wingif = new Image()
@@ -175,7 +175,7 @@ class PixelArtRoom {
         if (this.won) {
             ctx.font = '30px Courier bold'
             ctx.fillStyle = 'green'
-            ctx.fillText('FINALLY! Thx for setting Mario free :)', 650, 200)
+            ctx.fillText('FINALLY! Thx for setting Macro free :)', 650, 200)
             ctx.font = '15px Courier bold'
             ctx.fillText("press 'Esc' to restart", 1000, 250)
         }
@@ -193,7 +193,7 @@ class PixelArtRoom {
         ctx.font = '15px Arial'
         ctx.fillStyle = 'black'
         ctx.textAlign = 'center'
-        ctx.fillText('JSGD v1.3.0', 1150, 30)
+        ctx.fillText('JSGD v1.3.1', 1150, 30)
         ctx.textAlign = 'left'
         ctx.fillText('Player is refreshed every 60s when frozen', 1000, 60)
         ctx.fillStyle = this.isServerRunning ? 'green' : 'red'
