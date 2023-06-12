@@ -65,4 +65,4 @@ Just open ./public/index.html file in your browser
 5. Then node modules are installed:
     - npm install
 6. Then the server-side.js is run with node command (in the background) (check with "ps aux | grep server-side.js"):
-    - nohup node your-script.js > output.log 2>&1 &
+    - nohup node server-side.js > output.log 2>&1 &
