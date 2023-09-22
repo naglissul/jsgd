@@ -194,18 +194,19 @@ class PixelArtRoom {
         ctx.fillStyle = 'black'
         ctx.textAlign = 'center'
         ctx.fillText('JSGD v1.3.1', 1150, 30)
+        ctx.fillText('MULTIPLAYER GAME', 1150, 60)
         ctx.textAlign = 'left'
-        ctx.fillText('Player is refreshed every 60s when frozen', 1000, 60)
+        ctx.fillText('Player is refreshed every 60s when frozen', 1000, 90)
         ctx.fillStyle = this.isServerRunning ? 'green' : 'red'
         ctx.textAlign = 'center'
 
         ctx.fillText(
             `Server is: ${this.isServerRunning ? 'running' : 'not running'}`,
             1150,
-            90
+            120
         )
         ctx.fillStyle = 'black'
-        ctx.fillText('More: https://npw.lt/#/code', 1150, 120)
+        ctx.fillText('More: https://npw.lt/#/code', 1150, 150)
         ctx.font = '30px Arial'
         if (!this.won) {
             ctx.fillText(

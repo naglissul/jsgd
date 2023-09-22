@@ -48,6 +48,12 @@ or here: [website](https://npw.lt/#/code)
 
 Just open ./public/index.html file in your browser
 
+### Deploy on firebase
+
+npx firebase deploy --only hosting:jsgd
+
+(some pre-work must be done)
+
 ### Server side deployment process
 
 1. Server side is being hosted on linux server, using Linode services
